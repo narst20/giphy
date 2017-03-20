@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Personalize GIPHY search page</title>
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.2.0.min.js"
+  integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+  crossorigin="anonymous"></script>
+  <!--Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <style>
+  .topicbutton {
+    margin: 10px;
+  }
+  body{
+    background: #FFFDCF;
+  }
+  hr{
+    border: 1px solid #869B71;
+  }
+  </style>
+</head>
+
+<body>
+
+<!--Create custom search button -->
+<div class="container">
+<br><br><br>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="GIF Search..." id="topics-input">
+        <span class="input-group-btn">
+          <button class="btn btn-danger" id="make-button" type="submit" >Create search Button</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><br><br>
+  <hr>
+
+<!-- Where search buttons will live -->
+    <h3 align="center">Custom Searches</h3>
+    <div id="buttonheader"></div>
+    <br><br><br>
+    <hr>
+
+  <!-- Where Giphys will appear -->
+  <div id="giphyheader"></div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-12" id="giphyheader"><h2 align="center">First 10 GIFs</h2></div>
+  </div>
+  <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-2" id="gif_0"></div>
+      <div class="col-md-2" id="gif_1"></div>
+      <div class="col-md-2" id="gif_2"></div>
+      <div class="col-md-3"></div>
+  </div>
+  <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-2" id="rating_0"></div>
+      <div class="col-md-2" id="rating_1"></div>
+      <div class="col-md-2" id="rating_2"></div>
+      <div class="col-md-3"></div>
+  </div>
+  <div class="row">
+    <br>
+  </div>
+  <div class="row">
+    <br>
+  </div>
+  <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-2" id="gif_3"></div>
+      <div class="col-md-2" id="gif_4"></div>
+      <div class="col-md-2" id="gif_5"></div>
+      <div class="col-md-2" id="gif_6"></div>
+      <div class="col-md-2"></div>
+  </div>
+  <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-2" id="rating_3"></div>
+      <div class="col-md-2" id="rating_4"></div>
+      <div class="col-md-2" id="rating_5"></div>
+      <div class="col-md-2" id="rating_6"></div>
+      <div class="col-md-2"></div>
+  </div>
+  <div class="row">
+    <br>
+  </div>
+  <div class="row">
+    <br>
+  </div>
+  <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-2" id="gif_7"></div>
+      <div class="col-md-2" id="gif_8"></div>
+      <div class="col-md-2" id="gif_9"></div>
+      <div class="col-md-3"></div>
+  </div>
+  <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-2" id="rating_7"></div>
+      <div class="col-md-2" id="rating_8"></div>
+      <div class="col-md-2" id="rating_9"></div>
+      <div class="col-md-3"></div>
+  </div>
+</div>
+
+<!--Javascript functionality-->
+  <script src="https://code.jquery.com/jquery-3.2.0.min.js"
+  integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I="
+  crossorigin="anonymous"></script>
+  <script>
+    /* Add buttons to screen Pseudo Code
+      1. Start with topics array
+      2. Create functionality to load preexisting list on page
+      3. Have ability to enter and add topics list to array
+      4. Give it options to sort by Unicode value
+      */
+
+    $(document).ready(makeButtons);
+    var topics= ["animals", "colors", "football", "cars","board games"]; 
+    var newtopic;
+        function makeButtons() {
+          newtopic=$("#topics-input").val().trim();
+          console.log(newtopic);
+          if(newtopic===""){
+            $("#buttonheader").html(" ");
+            $("#buttonheader").empty();
+            topics.sort();
+            for(var i=0; i<topics.length; i++){
+              var button=$("<button>");
+              button.addClass("topicbutton btn btn-primary" );
+              button.attr("id","topic_"+i);
+              button.text(topics[i]);
+              $("#buttonheader").append(button);
+             }
+          }
+          else {
+            console.log($("#topics-input").val().trim());
+            $("#buttonheader").html(" ");
+            $("#buttonheader").empty();
+            topics.push(newtopic);
+            console.log(topics);
+            topics.sort();
+            console.log(topics);
+            $("#topics-input").val("");
+            for(var i=0; i<topics.length; i++){
+              var button=$("<button>");
+              button.addClass("topicbutton btn btn-primary");
+              button.attr("id","topic_"+i);
+              button.text(topics[i]);
+              $("#buttonheader").append(button);
+            }
+          }
+        }
+        
+     $("#make-button").on("click", makeButtons);
+      
+
+// Global variables for the URL in a later function
+    var stillarr=[];
+    var animatearr=[];
+// Get an API Key from GIPHY API and incorporate search query.
+   $(document.body).on("click", ".topicbutton", function() {
+
+  var type= $(this).html();  
+  var apikey="dc6zaTOxFJmzC";
+  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + type + "&api_key="+ apikey;
+
+
+//AJAX call to retrieve data 
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).done(function(response) {
+      console.log(response);
+//Add save still and animated URLs of GIFs in two separate arrays and add still images to HTML  
+      stillarr=[];
+      animatearr=[];  
+      for(var i=0; i<10; i++){  
+        still_i=response.data[i].images.fixed_width_small_still.url;
+        stillarr.push(still_i);
+        animate_i=response.data[i].images.fixed_width_small.url;
+        animatearr.push(animate_i);
+        console.log(still_i);
+        console.log(animate_i);
+        console.log(response.data[i].rating);
+        $("#gif_"+i).html('<img src="' +still_i+ '">');
+        $("#rating_"+i).html("Rating: "+ response.data[i].rating);
+      }
+/*Pull image source of click GIF
+1.Look through still array for URL and its position.
+2.Find corresponding position in animated array and replace still image.
+3. To go back to still, find position in animated array; find corresponding position in still array and replace animated image with stil pic*/
+      $(document.body).on("click", 'img', function() {
+        console.log(this);
+        console.log($(this).attr('src'));
+        console.log(stillarr);
+        console.log(animatearr);
+        console.log(stillarr.indexOf($(this).attr('src')));
+        var indexnumstill=stillarr.indexOf($(this).attr('src'));
+        var indexnumanimate=animatearr.indexOf($(this).attr('src'));
+        console.log($(this).attr('src'));       
+        console.log(indexnumstill);
+        console.log(indexnumanimate);
+/*Switch to animate */
+      if (indexnumstill!==-1){
+        $(this).attr('src',animatearr[indexnumstill]);
+        console.log($(this).attr('src'));
+      }
+/*Switch to still*/
+      else{
+        $(this).attr('src',stillarr[indexnumanimate]);
+        console.log($(this).attr('src'));
+      }
+    });
+	   
+       });
+  });
+</script>
+
+</body>
+
+</html>
